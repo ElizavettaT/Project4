@@ -8,7 +8,7 @@ const app = express()
 
 app.use(express.static('dist'))
 
-console.log(__dirname)
+// console.log(__dirname)
 
 app.get('/', function (req, res) {
     res.sendFile('dist/index.html')
@@ -25,8 +25,7 @@ app.get('/test', function (req, res) {
 })
 
 app.get('/nlp', async function (req, res) {
-    response = await getNlpData(req.get('article'))
-    // console.log("Response: ", response)
+    const response = await getNlpData(req.get('article'))
     res.send(response)
 })
 
@@ -44,3 +43,5 @@ async function getNlpData(article) {
     }
     return { 'polarity': jsonResponse.score_tag, 'subjectivity': jsonResponse.subjectivity, text }
 }
+
+module.exports = app;
